@@ -10,7 +10,6 @@ export const fetchWithoutToken = async ( endpoint, data, method = 'GET' ) => {
         const resp = await fetch( url );
         return await resp.json();
     } else {
-        console.log("llamada POST");
         const resp = await fetch ( url, {
             method,
             headers: {
