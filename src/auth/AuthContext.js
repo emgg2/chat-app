@@ -30,15 +30,14 @@ export const AuthProvider = ({ children }) => {
                 email: user.email
             });
             console.log("Authenticated!!!");
+           
         }
-
         return resp.ok;
     }
 
     const register = async (name, email, password) => {
         
         const resp = await fetchWithoutToken('login/new', {email, password, name}, 'POST');
-
         if( resp.ok ) {
             localStorage.setItem('token', resp.token);
             const { user } = resp;
@@ -50,9 +49,10 @@ export const AuthProvider = ({ children }) => {
                 email: user.email
             });
             console.log("New user registered!!!");
+            
         }
+        return resp;
         
-        return resp.ok;
     }
 
     const checkToken = useCallback( () => {

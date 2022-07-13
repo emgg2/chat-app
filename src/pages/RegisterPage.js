@@ -9,9 +9,9 @@ export const RegisterPage = () => {
 
 	const { register } = useContext( AuthContext );
 	const [ form, setForm ] = useState({
-		email: '',
-		password: '',
-		name:''
+		email: 'adrian2@kk.es',
+		password: '1221',
+		name:'adrian2'
 	});
 
 	const onChange = ({target}) => {
@@ -25,14 +25,19 @@ export const RegisterPage = () => {
 	const onSubmit = async (ev) => {
 		ev.preventDefault();
 		const { email, password, name } = form;
-		const ok = await register (name, email, password);
+		const resp = await register (name, email, password);
+		const { ok, msg } = resp;
 		if ( !ok ) {
-			Swal.fire('Error', 'Error registering user');
+			Swal.fire('Error', msg );
 		}
 	}
 	
 	const allOK =  () => {
-		return ( form.email.length > 0 && form.password.length > 0 && form.name.length >0 ) ? true : false;
+		return ( 
+			form.email.length > 0 && 
+			form.password.length > 0 && 
+			form.name.length >0 
+		) ? true : false;
 	} 
   return (
     <div className="limiter">
@@ -86,13 +91,13 @@ export const RegisterPage = () => {
 					
 					<div className="row mb-3">
 						<div className="col text-right">
-							<Link to='/auth/login' class="txt1">
+							<Link to='/auth/login' className="txt1">
 								Ya tienes cuenta?
 							</Link>
 						</div>
 					</div>
 
-					<div class="container-login100-form-btn m-t-17">
+					<div className="container-login100-form-btn m-t-17">
 						<button 
 							type='submit'
 							className="login100-form-btn"
