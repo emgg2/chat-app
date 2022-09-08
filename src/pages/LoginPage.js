@@ -50,7 +50,6 @@ export const LoginPage = () => {
 			? localStorage.setItem('email', form.email)
 			: localStorage.removeItem('email');
 
-		//TODO: llamar al backend
 		const { email, password } = form;
 		const ok = await login( email, password );
 		if ( !ok ) {
