@@ -29,7 +29,6 @@ export const AuthProvider = ({ children }) => {
                 name: user.name, 
                 email: user.email
             });
-            console.log("Authenticated!!!");
            
         }
         return resp.ok;
@@ -48,7 +47,6 @@ export const AuthProvider = ({ children }) => {
                 name: user.name, 
                 email: user.email
             });
-            console.log("New user registered!!!");
             
         }
         return resp;
@@ -78,7 +76,6 @@ export const AuthProvider = ({ children }) => {
                 name: user.name, 
                 email: user.email
             });
-            console.log("Authenticated!!!");
             return true;
             
         } else {

@@ -4,15 +4,20 @@ import io from 'socket.io-client';
 
 export const useSocket = ( serverPath ) => {
     
-   // const socket = useMemo(() => io.connect( serverPath, {transports: ['websocket']} ), [ serverPath ] );
     const [ socket, setSocket ] = useState(null);
     const [ online, setOnline ] = useState(false);
 
     const connectSocket = useCallback ( () => {
+
+        const token = localStorage.getItem('token');
+
         const socketTemp = io.connect( serverPath, {
                 transports: ['websocket'],
                 autoConnect: true,
-                forceNew: true            
+                forceNew: true ,
+                query: {
+                    'x-token': token
+                }           
         } );
 
         setSocket ( socketTemp ); 
