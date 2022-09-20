@@ -1,10 +1,35 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ChatContext } from '../../context/chat/ChatContext'
+import { fetchWithToken } from '../../helpers/fetch';
+import { types } from '../../types/types';
 
 export const SidebarChatItem = ({ user }) => {
  
+    const { chatState, dispatch } = useContext( ChatContext );    
+    const { activeChat } = chatState;
+
+    const onClick = async() => {
+        dispatch ({
+            type: types.setActiveChat,
+            payload: user.uid
+        })
+        // Load chat`s messages
+        const resp = await fetchWithToken ( `messages/${ user.uid }`);
+
+        dispatch ({
+            type: types.loadingMessages,
+            payload: resp.messages
+        })
+
+        //TODO: mover el scroll
+
+    }
   return (
-     <div className="chat_list ">
-        {/* active_chat  */}
+     <div 
+        className={`chat_list ${ (user.uid === activeChat) && 'active_chat' } ` }
+        onClick={ onClick }
+    >
+       
 
      <div className="chat_people">
          <div className="chat_img"> 

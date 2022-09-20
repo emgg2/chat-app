@@ -6,6 +6,7 @@ import { ChatContext } from './chat/ChatContext';
 import { useSocket } from '../hooks/useSocket'
 
 import { types } from '../types/types';
+import { scrollToBottomAnimated } from '../helpers/scrollToBottom';
 
 export const SocketContext = createContext();
 
@@ -21,13 +22,13 @@ export const SocketProvider = ({ children }) => {
       if( auth.logged ) {
           connectSocket();
       }     
-    }, [ auth, connectSocket ])
+    }, [ auth, connectSocket ]);
 
     useEffect(() => {
         if( !auth.logged ) {
             disconnectSocket();
         }      
-      }, [ auth, disconnectSocket ])
+      }, [ auth, disconnectSocket ]);
     
     //Listen changes connected users
 
@@ -39,7 +40,20 @@ export const SocketProvider = ({ children }) => {
 
             })
         })
+      }, [socket, dispatch]);
+
+
+      useEffect(() => {
+        socket?.on('personal-message', (message) => {
+            //TODO dispatch de una accion
+            dispatch({
+                type: types.newMessage, 
+                payload: message
+            })
+            scrollToBottomAnimated('messages');
+        });    
       }, [socket, dispatch])
+      
       
     
     return (
