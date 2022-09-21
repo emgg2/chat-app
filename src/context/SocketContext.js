@@ -45,7 +45,6 @@ export const SocketProvider = ({ children }) => {
 
       useEffect(() => {
         socket?.on('personal-message', (message) => {
-            //TODO dispatch de una accion
             dispatch({
                 type: types.newMessage, 
                 payload: message
